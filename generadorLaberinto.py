@@ -22,6 +22,7 @@ def marcar_pos(i, j, tam, matrix, fronteras):
 
 
 def elegir_direccion(i_actual ,j_actual, i_vecino, j_vecino):
+    #print("{},{} {},{}".format(i_actual,j_actual,i_vecino,j_vecino))
     if(i_actual == i_vecino - 1): muros_eliminados.append([[i_vecino,j_vecino],1])
     if(j_actual == j_vecino + 1): muros_eliminados.append([[i_vecino,j_vecino],2])
     if(i_actual == i_vecino + 1): muros_eliminados.append([[i_vecino,j_vecino],3])

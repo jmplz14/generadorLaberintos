@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>three.js webgl visor laberinto</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link type="text/css" rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+	
+	<script type="module">
+
+		import * as THREE from '/threejs/three.module.js';
+
+		let camera, scene, renderer, material;
+		const wallWidth = 5, wallLong = 30, wallHigh = 20;
+		const hallSize = 20;
+		let mesh;
+
+		/*function createPerimeter(n){
+			var long = wallLong+
+			const geometry = new THREE.BoxGeometry(wallWidth, largo * n, wallHigh);
+			const material = new THREE.MeshBasicMaterial({ map: texture });
+			
+		}*/
+		init();
+		animate();
+
+		function init() {
+
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 400);
+			camera.position.z = 400;
+
+			scene = new THREE.Scene();
+			scene.background = new THREE.Color(0xbfe3dd);
+
+			const texture = new THREE.TextureLoader().load('/images/crate.gif');
+
+			const geometry = new THREE.BoxGeometry(wallWidth, wallLong, wallHigh);
+			const material = new THREE.MeshBasicMaterial({ map: texture });
+
+			let posicion=0;
+
+			for (var i = 0; i < 9; i++) {
+				mesh = new THREE.Mesh(geometry, material);
+				scene.add(mesh);
+				mesh.position.set(posicion, 0, 0);
+				mesh.rotation.z = Math.PI / 2,0;
+				posicion += wallLong;
+			}
+
+			renderer = new THREE.WebGLRenderer({ antialias: true });
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+			//
+
+			window.addEventListener('resize', onWindowResize);
+
+		}
+
+		function onWindowResize() {
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+		}
+
+		function animate() {
+
+			requestAnimationFrame(animate);
+
+			/*mesh.rotation.x += 0.005;
+			mesh.rotation.y += 0.01;*/
+
+			renderer.render(scene, camera);
+
+		}
+
+	</script>
+
+</body>
+
+</html>
