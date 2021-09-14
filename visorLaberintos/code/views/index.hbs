@@ -87,6 +87,9 @@
 
 		function createLabyrinth(labyrinth) {
 
+			while (scene.children.length > 0) {
+				scene.remove(scene.children[0]);
+			}
 			createPerimeter(labyrinth.size);
 			createInteriorWalls(labyrinth);
 		}
@@ -248,7 +251,7 @@
 
 		function init() {
 
-			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 400);
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 			camera.position.z = 400;
 
 			scene = new THREE.Scene();
