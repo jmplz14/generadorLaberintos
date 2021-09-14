@@ -27,10 +27,16 @@
 		const hallSize = 20;
 		const texture = new THREE.TextureLoader().load('/images/crate.gif');
 		let mesh;
-		const materialTextura = new THREE.MeshBasicMaterial({ map: texture });
 
 
-		function createWall(xPos, yPos, long, horizontal) {
+
+		function createWall(xPos, yPos, long, horizontal, zFighting) {
+			var materialTextura = new THREE.MeshBasicMaterial({
+				map: texture,
+				polygonOffset: true,
+				polygonOffsetFactor: zFighting,
+				polygonOffsetUnits: -4.0
+			});
 			var geometry = new THREE.BoxGeometry(wallWidth, long, wallHigh);
 			var mesh = new THREE.Mesh(geometry, materialTextura);
 
@@ -127,7 +133,7 @@
 						verticalWalls[x][y] = false;
 					} else {
 						console.log(x);
-						console.log(y-1);
+						console.log(y - 1);
 						verticalWalls[x][y - 1] = false;
 					}
 				}
@@ -151,9 +157,16 @@
 				let XHorizontal = -pos + wallLong / 2 + wallWidth / 2;
 
 				for (var j = 0; j < sizeLabyrinth; j++) {
+					let zIndex;
+					if (j % 2 === 0) {
+						zIndex = 0;
+					} else {
+						zIndex = -0.5;
+					}
+
 					if (horizontalWalls[i][j]) {
 
-						createWall(XHorizontal, YHorizontal, wallLong + wallWidth, true);
+						createWall(XHorizontal, YHorizontal, wallLong + wallWidth, true, zIndex);
 
 					}
 					XHorizontal += wallLong;
@@ -175,11 +188,17 @@
 
 				let XVertical = -pos + wallWidth / 2 + wallLong;
 
+				let zIndex;
+				if (i % 2 === 0) {
+					zIndex = -1;
+				} else {
+					zIndex = -1.5;
+				}
 				for (var j = 0; j < sizeLabyrinth - 1; j++) {
 					console.log("vertical:" + i + ":" + j);
 					if (verticalWalls[i][j]) {
 
-						createWall(XVertical, YVertical, wallLong + wallWidth, false);
+						createWall(XVertical, YVertical, wallLong + wallWidth, false, zIndex);
 
 					}
 					XVertical += wallLong
@@ -213,16 +232,16 @@
 			scene.add(sphere);*/
 
 			//superior
-			createWall(0, pos, perimeterLong, true);
+			createWall(0, pos, perimeterLong, true, -2);
 
 			//inferior
-			createWall(0, -pos, perimeterLong, true)
+			createWall(0, -pos, perimeterLong, true, -2);
 
 			//izquierda
-			createWall(-pos, 0, perimeterLong, false)
+			createWall(-pos, 0, perimeterLong, false, -3);
 
 			//derecha
-			createWall(pos, 0, perimeterLong, false)
+			createWall(pos, 0, perimeterLong, false, -3);
 		}
 		init();
 		animate();
