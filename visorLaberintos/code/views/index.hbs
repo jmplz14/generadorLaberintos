@@ -7,6 +7,8 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<link type="text/css" rel="stylesheet" href="/stylesheets/main.css">
 	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 
 <body>
@@ -14,9 +16,22 @@
 
 
 
+	<!--<div id="botonera">
+		<input type="file" class="form-control-file custom-file-upload" id="fileUpload">
+		<button id="buttonLoadLabyrinth" class="btn btn-light">Cargar laverinto</button>
+	</div>-->
+	<div id="botonera">
 
-	<input type="file" id="fileUpload">
-	<button id="buttonLoadLabyrinth">Cargar laverinto</button>
+		<div class="fileUpload btn btn-secondary">
+			<span>Upload</span>
+			<input id="uploadBtn" type="file" class="upload" />
+		</div>
+		<input id="Elegir fichero" placeholder="Fichero" disabled="disabled" />
+		<button id="buttonLoadLabyrinth" class="btn btn-secondary">Cargar laberinto</button>
+	</div>
+
+
+
 
 	<script type="module">
 
@@ -53,7 +68,7 @@
 		function readCSV() {
 			var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
 
-			if (regex.test($("#fileUpload").val().toLowerCase())) {
+			if (regex.test($("#uploadBtn").val().toLowerCase())) {
 				if (typeof (FileReader) != "undefined") {
 					var labyrinth = {
 						size: "",
@@ -74,7 +89,7 @@
 						console.log(labyrinth);
 						createLabyrinth(labyrinth);
 					}
-					reader.readAsText($("#fileUpload")[0].files[0]);
+					reader.readAsText($("#uploadBtn")[0].files[0]);
 
 
 				} else {
@@ -246,6 +261,7 @@
 			//derecha
 			createWall(pos, 0, perimeterLong, false, -3);
 		}
+		document.getElementById("uploadBtn").value = "";
 		init();
 		animate();
 
@@ -315,6 +331,9 @@
 		$("#buttonLoadLabyrinth").click(function () {
 			readCSV();
 		});
+		document.getElementById("uploadBtn").onchange = function () {
+			document.getElementById("uploadFile").value = this.value.replace("C:\\fakepath\\","");
+		};
 	</script>
 
 </body>
