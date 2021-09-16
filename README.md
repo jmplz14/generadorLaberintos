@@ -18,7 +18,7 @@ El funcionamiento del algoritmo es el siguiente:
 
     ![](imagenes/3.png)
 
-3. Elegimos una de las celdas frontera de forma aleatoria.Seleccionamos una celda ya visitada adyacente a esta y la conectamos
+3. Elegimos una de las celdas frontera de forma aleatoria. Seleccionamos una celda ya visitada adyacente a esta y la conectamos
 eliminando el muro entre ellas. Si tenemos mas de una celda ya visitada adyacentes a la celda frontera elegiríamos de
 forma aleatoria una de ellas.
 
@@ -74,6 +74,10 @@ Una vez ejecutados accedemos a http://localhost:3000/ y tenemos la siguiente web
 Seleccionamos un fichero con el botón elegir laberinto y pulsamos cargar laberinto para mostrarlo. Dentro de la carpeta ficherosLaberintos tendremos varios ejemplos que podemos utilizar. Vamos a mostrar en mi caso el laberinto15.csv y laberinto10.csv.
 
 En el siguiente video muestro el funcionamiento de la aplicación.
+
+https://user-images.githubusercontent.com/26877681/133644403-359dceb4-4c0c-4dd8-b944-6f30a86f9f82.mp4
+
+
 
 
 
